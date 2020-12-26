@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813684619623",
+    "project_id": "utsc-20d79",
+    "storage_bucket": "utsc-20d79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813684619623:android:a58614651d7f2056aed7c2",
+        "android_client_info": {
+          "package_name": "com.example.utsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813684619623-2a7gl4pppk0amkpopuar2oovil7a3bvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRKoR7gliCjHjEUzAdwPr0MGZVzyHu728"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813684619623-2a7gl4pppk0amkpopuar2oovil7a3bvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
