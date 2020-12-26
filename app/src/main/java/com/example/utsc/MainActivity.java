@@ -26,12 +26,15 @@ import java.util.List;
 import java.util.function.LongConsumer;
 
 /**
- * The type Main activity.
+ * This class contains methods for text extraction and text display
  * @author Safayat
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Defining variables
+     */
     private Button capture_image_btn, detect_text_btn;
     private ImageView image_view;
     private TextView text_view;
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /**
+         * Assigning variables
+         */
         capture_image_btn = findViewById(R.id.capture_image_btn);
         detect_text_btn = findViewById(R.id.detect_text_image_btn);
         image_view = findViewById(R.id.image_view);
@@ -65,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * dispatchTakePictureIntent void
-     * This function takes a photo with a camera app
-     * @return void
+     * This method allows user to open the phone camera to take pictures.
      */
     private void dispatchTakePictureIntent() {
         Intent take_picture_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -79,9 +83,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * onActivityResult void
-     * This function gets the data/image and displays it in ImageView
-     * @return void
+     * This method is displaying the captured image in a imageView.
+     * @param requestCode an integer
+     * @param resultCode an integer
+     * @param data an Intent
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method detects text from image.
      */
     private void detectTextFromImage() {
         FirebaseVisionImage firebase_vision_image = FirebaseVisionImage.fromBitmap(imageBitmap);
@@ -115,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
-     * @param firebaseVisionText
+     * This method displays text from image.
+     * @param firebaseVisionText A FirebaseVisionText object
      */
     private void displayTextFromImage(FirebaseVisionText firebaseVisionText) {
         List<FirebaseVisionText.Block> block_list = firebaseVisionText.getBlocks();
