@@ -35,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Defining variables
      */
-    private Button capture_image_btn, detect_text_btn;
     private ImageView image_view;
     private TextView text_view;
+    private Button identify_btn,capture_image_btn,detect_text_btn;
+    public String text;
     static final int request_image_capture = 1;
     Bitmap imageBitmap;
 
@@ -49,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Assigning variables
          */
-        capture_image_btn = findViewById(R.id.capture_image_btn);
-        detect_text_btn = findViewById(R.id.detect_text_image_btn);
+        capture_image_btn = findViewById(R.id.captureImageBtn);
+        detect_text_btn = findViewById(R.id.detectTextImageBtn);
+        identify_btn = findViewById(R.id.identifyBtn);
         image_view = findViewById(R.id.image_view);
         text_view = findViewById(R.id.text_display);
 
@@ -66,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 detectTextFromImage();
+            }
+        });
+
+        identify_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, IdentifyTanslateTextActivity.class);
+                intent.putExtra("TEXT",text);
+                startActivity(intent);
+
             }
         });
     }
@@ -130,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             for(FirebaseVisionText.Block block : firebaseVisionText.getBlocks()){
-                String text = block.getText();
+                text = block.getText();
                 text_view.setText(text);
             }
         }

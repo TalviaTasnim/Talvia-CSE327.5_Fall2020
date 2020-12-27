@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="400dp"/>
+        android:layout_height="300dp"/>
 
     <TextView
         android:id="@+id/text_display"
@@ -23,24 +23,34 @@
         android:layout_margin="10dp"/>
 
     <Button
-        android:id="@+id/capture_image_btn"
+        android:id="@+id/captureImageBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/detectTextImageBtn"
+        android:layout_marginBottom="-6dp"
         android:text="Capture Image"
         android:textAllCaps="false"
-        android:layout_above="@id/detect_text_image_btn"
-        android:textSize="17dp"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="17dp" />
 
     <Button
-        android:id="@+id/detect_text_image_btn"
+        android:id="@+id/detectTextImageBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="46dp"
         android:text="Detect Text"
         android:textAllCaps="false"
-        android:textSize="17dp"/>
+        android:textSize="17dp" />
 
+    <Button
+        android:id="@+id/identifyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
+        android:text="Identify Language"
+        android:textAllCaps="false"
+        android:textSize="17dp" />
 
 
 </RelativeLayout>

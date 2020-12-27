@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.utsc">
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -12,9 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UTSC">
-
+        <activity android:name=".IdentifyTanslateTextActivity"></activity>
         <activity android:name=".MainActivity">
-
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="ocr" />
