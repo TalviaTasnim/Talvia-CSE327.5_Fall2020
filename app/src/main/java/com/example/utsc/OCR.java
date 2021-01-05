@@ -22,15 +22,15 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
 
+
 import java.util.List;
-import java.util.function.LongConsumer;
 
 /**
  * This class contains methods for text extraction and text display
  * @author Safayat
  * @version 1.0
  */
-public class MainActivity extends AppCompatActivity {
+public class OCR extends AppCompatActivity {
 
     /**
      * Defining variables
@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView text_view;
     private Button identify_btn,capture_image_btn,detect_text_btn;
     public String text;
-    static final int request_image_capture = 1;
-    Bitmap imageBitmap;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    Bitmap image_bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ocr);
 
         /**
          * Assigning variables
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         identify_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, IdentifyTanslateTextActivity.class);
+                Intent intent = new Intent(OCR.this, IdentifyTranslateTextActivity.class);
                 intent.putExtra("TEXT",text);
                 startActivity(intent);
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         Intent take_picture_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
-            startActivityForResult(take_picture_intent, request_image_capture);
+            startActivityForResult(take_picture_intent, REQUEST_IMAGE_CAPTURE);
         } catch (ActivityNotFoundException e) {
             // display error state to the user
         }
@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == request_image_capture && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            image_view.setImageBitmap(imageBitmap);
+            image_bitmap = (Bitmap) extras.get("data");
+            image_view.setImageBitmap(image_bitmap);
         }
     }
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
      * This method detects text from image.
      */
     private void detectTextFromImage() {
-        FirebaseVisionImage firebase_vision_image = FirebaseVisionImage.fromBitmap(imageBitmap);
+        FirebaseVisionImage firebase_vision_image = FirebaseVisionImage.fromBitmap(image_bitmap);
         FirebaseVisionTextDetector firebase_vision_text_detector = FirebaseVision.getInstance().getVisionTextDetector() ;
         firebase_vision_text_detector.detectInImage(firebase_vision_image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
             @Override
@@ -125,12 +125,11 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(OCR.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("Error " , e.getMessage());
             }
         });
     }
-
     /**
      * This method displays text from image.
      * @param firebaseVisionText A FirebaseVisionText object

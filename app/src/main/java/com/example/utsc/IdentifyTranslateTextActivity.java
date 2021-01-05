@@ -14,9 +14,10 @@ import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
 
 /**
- * The type Identify text activity.
+ * The class contains method of language identification 
+ * @author Safayat
  */
-public class IdentifyTanslateTextActivity extends AppCompatActivity {
+public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
     /**
      * Variable declaration
@@ -25,6 +26,7 @@ public class IdentifyTanslateTextActivity extends AppCompatActivity {
     private Button translate_btn;
     private TextView translated_text;
     private String text;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +39,6 @@ public class IdentifyTanslateTextActivity extends AppCompatActivity {
         source_text = findViewById(R.id.sourceText);
         translate_btn = findViewById(R.id.translate);
         translated_text = findViewById(R.id.translatedText);
-
         source_text.setText(getIntent().getStringExtra("TEXT"));
 
         translate_btn.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +51,8 @@ public class IdentifyTanslateTextActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method identifies the language in a text
+     * by getting the language code of that language by calling getLanguageCode().
      */
     private void identifyLanguage() {
         text = source_text.getText().toString();
@@ -69,7 +71,7 @@ public class IdentifyTanslateTextActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method gets the language code of a language.
      * @param s A string containing language code of the Identified language.
      */
     private void getLanguageCode(String s) {
