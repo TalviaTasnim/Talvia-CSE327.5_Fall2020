@@ -14,7 +14,7 @@ import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
 
 /**
- * The class contains method of language identification 
+ * The class contains method of language identification
  * @author Safayat
  */
 public class IdentifyTranslateTextActivity extends AppCompatActivity {

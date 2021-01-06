@@ -47,8 +47,8 @@ public class OCR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
 
-        /**
-         * Assigning variables
+        /*
+          Assigning variables
          */
         capture_image_btn = findViewById(R.id.captureImageBtn);
         detect_text_btn = findViewById(R.id.detectTextImageBtn);
