@@ -28,7 +28,7 @@ public class TextToSpeechExample extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_text_to_speech_example);
 
         m_button_speak = findViewById(R.id.button_speak);
         m_tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -48,8 +48,8 @@ public class TextToSpeechExample extends AppCompatActivity {
             }
         });
 
-        /**
-         * Assigning variables
+        /*
+          Assigning variables
          */
         m_edit_text = findViewById(R.id.edit_text);
         m_seekbar_pitch = findViewById(R.id.seek_bar_pitch);
@@ -63,7 +63,7 @@ public class TextToSpeechExample extends AppCompatActivity {
     }
 
     /**
-     * this method envokes speak button
+     * this method invokes speak button
      */
     private void speak() {
         String text = m_edit_text.getText().toString();
@@ -84,7 +84,6 @@ public class TextToSpeechExample extends AppCompatActivity {
     /**
      * when the written text is done speaking one time
      */
-
     @Override
     protected void onDestroy() {
         if (m_tts != null) {
