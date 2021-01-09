@@ -52,111 +52,72 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
     /**
      * This method identifies the language in a text
-     * by getting the language code of that language by calling getLanguageCode().
+     * by getting the language code of that text
      */
     private void identifyLanguage() {
         text = source_text.getText().toString();
         LanguageIdentifier language_identifier = LanguageIdentification.getClient();
-                language_identifier.identifyLanguage(text).addOnSuccessListener(new OnSuccessListener<String>() {
+        source_lang.setText("Detecting...");
+        language_identifier.identifyLanguage(text).addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
             public void onSuccess(String s) {
                 if(s.equals("und")){
                     Toast.makeText(getApplicationContext(), "Can't Identify Language", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    getLanguageCode(s);
+                    source_lang.setText(s);
+                    translateText(text);
+
                 }
             }
-        });
-    }
-
-    /**
-     * This method gets the language code of a language.
-     * @param language A string containing language code of the Identified language.
-     */
-    private void getLanguageCode(String language) {
-        int langCode;
-        switch(language){
-            case "bn":
-                langCode = FirebaseTranslateLanguage.BN;
-                mSourceLang.setText("Bangla");
-                break;
-
-            case "fr":
-                langCode = FirebaseTranslateLanguage.FR;
-                mSourceLang.setText("French");
-                break;
-
-            case "ja":
-                langCode = FirebaseTranslateLanguage.JA;
-                mSourceLang.setText("Japanese");
-                break;
-
-            case "it":
-                langCode = FirebaseTranslateLanguage.IT;
-                mSourceLang.setText("Italian");
-                break;
-
-            case "hi":
-                langCode = FirebaseTranslateLanguage.HI;
-                mSourceLang.setText("Hindi");
-                break;
-
-            case "ur":
-                langCode = FirebaseTranslateLanguage.UR;
-                mSourceLang.setText("Urdu");
-                break;
-
-            case "ar":
-                langCode = FirebaseTranslateLanguage.AR;
-                mSourceLang.setText("Arabic");
-                break;
-
-            case "ru":
-                langCode = FirebaseTranslateLanguage.RU;
-                mSourceLang.setText("Russian");
-                break;
-
-            default:
-                langCode = 0;
-        }
-
-        translateText(langCode);
-    }
-
-
-    /**
-     * This method passes the language codes of source and target message and performs transforming.
-     * @param langCode An integer containing language code of the Identified language string code.
-     */
-    
-    private void translateText(int langCode){
-        mTranslatedText.setText("Translating...");
-        FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
-                //from language
-                .setSourceLanguage(langCode)
-                //to language
-                .setTargetLanguage(FirebaseTranslateLanguage.EN)
-                .build();
-
-        final FirebaseTranslator translator = FirebaseNaturalLanguage.getInstance()
-                .getTranslator(options);
-
-        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
-                .build();
-
-        translator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>(){
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onSuccess(Void aVoid){
-                translator.translate(sourceText).addOnSuccessListener(new OnSuccessListener<String>(){
-                    @Override
-                    public void onSuccess(String s){
-                        mTranslatedText.setText(s);
-                    }
-                });
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error " , e.getMessage());
             }
         });
     }
-    
-    
+
+    /**
+     * This method translates the given text
+     * @param s A string containing a string of text
+     */
+    private void translateText(String s) {
+        TranslatorOptions options = new TranslatorOptions.Builder()
+                .setSourceLanguage(TranslateLanguage.ENGLISH)
+                .setTargetLanguage(TranslateLanguage.BENGALI)
+                .build();
+        final Translator english_bengali_translator = Translation.getClient(options);
+
+        DownloadConditions conditions = new DownloadConditions.Builder().requireWifi().build();
+        english_bengali_translator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Model download successful", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(
+                new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("Error " , e.getMessage());
+                    }
+                });
+
+        english_bengali_translator.translate(s).addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                translated_text.setText(s);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error " , e.getMessage());
+            }
+        });
+
+    }
 }
