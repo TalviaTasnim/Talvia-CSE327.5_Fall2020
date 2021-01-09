@@ -156,5 +156,4 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
             }
         });
     }
-
 }
