@@ -72,8 +72,89 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
     /**
      * This method gets the language code of a language.
-     * @param s A string containing language code of the Identified language.
+     * @param language A string containing language code of the Identified language.
      */
-    private void getLanguageCode(String s) {
+    private void getLanguageCode(String language) {
+        int langCode;
+        switch(language){
+            case "bn":
+                langCode = FirebaseTranslateLanguage.BN;
+                mSourceLang.setText("Bangla");
+                break;
+
+            case "fr":
+                langCode = FirebaseTranslateLanguage.FR;
+                mSourceLang.setText("French");
+                break;
+
+            case "ja":
+                langCode = FirebaseTranslateLanguage.JA;
+                mSourceLang.setText("Japanese");
+                break;
+
+            case "it":
+                langCode = FirebaseTranslateLanguage.IT;
+                mSourceLang.setText("Italian");
+                break;
+
+            case "hi":
+                langCode = FirebaseTranslateLanguage.HI;
+                mSourceLang.setText("Hindi");
+                break;
+
+            case "ur":
+                langCode = FirebaseTranslateLanguage.UR;
+                mSourceLang.setText("Urdu");
+                break;
+
+            case "ar":
+                langCode = FirebaseTranslateLanguage.AR;
+                mSourceLang.setText("Arabic");
+                break;
+
+            case "ru":
+                langCode = FirebaseTranslateLanguage.RU;
+                mSourceLang.setText("Russian");
+                break;
+
+            default:
+                langCode = 0;
+        }
+
+        translateText(langCode);
     }
+
+
+    /**
+     * This method passes the language codes of source and target message and performs transforming.
+     * @param langCode An integer containing language code of the Identified language string code.
+     */
+    private void translateText(int langCode){
+        mTranslatedText.setText("Translating...");
+        FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
+                //from language
+                .setSourceLanguage(langCode)
+                //to language
+                .setTargetLanguage(FirebaseTranslateLanguage.EN)
+                .build();
+
+        final FirebaseTranslator translator = FirebaseNaturalLanguage.getInstance()
+                .getTranslator(options);
+
+        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
+                .build();
+
+        translator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>(){
+            @Override
+            public void onSuccess(Void aVoid){
+                translator.translate(sourceText).addOnSuccessListener(new OnSuccessListener<String>(){
+                    @Override
+                    public void onSuccess(String s){
+                        mTranslatedText.setText(s);
+                    }
+                });
+            }
+        });
+    }
+
 }
