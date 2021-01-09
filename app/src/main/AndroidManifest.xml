@@ -5,7 +5,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,8 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UTSC">
-        <activity android:name=".IdentifyTranslateTextActivity"></activity>
-        <activity android:name=".OCR">
+        <activity android:name=".DashBoard">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="ocr" />
@@ -26,6 +25,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".TextToSpeechExample" />
+        <activity android:name=".IdentifyTranslateTextActivity" />
+        <activity android:name=".OCR">
+
         </activity>
     </application>
 
