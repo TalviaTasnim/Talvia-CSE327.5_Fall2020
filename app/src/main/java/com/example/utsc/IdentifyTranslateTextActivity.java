@@ -66,25 +66,31 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
         text = source_text.getText().toString();
         LanguageIdentifier language_identifier = LanguageIdentification.getClient();
         source_lang.setText("Detecting...");
+
                 language_identifier.identifyLanguage(text).addOnSuccessListener(new OnSuccessListener<String>() {
+
             @Override
             public void onSuccess(String s) {
                 if(s.equals("und")){
                     Toast.makeText(getApplicationContext(), "Can't Identify Language", Toast.LENGTH_LONG).show();
                 }
                 else{
+
                        source_lang.setText(s);
                        translateText(text);
+
 
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
+
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.d("Error " , e.getMessage());
                     }
                 });
+
     }
 
     /**
@@ -93,9 +99,12 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
      */
     private void translateText(String s) {
         TranslatorOptions options = new TranslatorOptions.Builder()
+
                         .setSourceLanguage(TranslateLanguage.ENGLISH)
                         .setTargetLanguage(TranslateLanguage.BENGALI)
                         .build();
+
+
         final Translator english_bengali_translator = Translation.getClient(options);
 
         DownloadConditions conditions = new DownloadConditions.Builder().requireWifi().build();
