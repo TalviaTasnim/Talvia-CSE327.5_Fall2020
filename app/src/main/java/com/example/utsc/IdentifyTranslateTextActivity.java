@@ -129,6 +129,7 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
      * This method passes the language codes of source and target message and performs transforming.
      * @param langCode An integer containing language code of the Identified language string code.
      */
+    
     private void translateText(int langCode){
         mTranslatedText.setText("Translating...");
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
@@ -156,4 +157,6 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
             }
         });
     }
+    
+    
 }
