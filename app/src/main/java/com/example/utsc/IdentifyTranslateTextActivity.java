@@ -1,17 +1,25 @@
 package com.example.utsc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
+import com.google.mlkit.nl.translate.TranslateLanguage;
+import com.google.mlkit.nl.translate.Translation;
+import com.google.mlkit.nl.translate.Translator;
+import com.google.mlkit.nl.translate.TranslatorOptions;
 
 /**
  * The class contains method of language identification
@@ -19,7 +27,7 @@ import com.google.mlkit.nl.languageid.LanguageIdentifier;
  */
 public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
-    /**
+    /*
      * Variable declaration
      */
     private TextView source_lang,source_text;
@@ -32,7 +40,7 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identify_text);
 
-        /**
+        /*
          * Assigning variables
          */
         source_lang = findViewById(R.id.sourceLang);
@@ -52,11 +60,12 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
     /**
      * This method identifies the language in a text
-     * by getting the language code of that language by calling getLanguageCode().
+     * by getting the language code of that text
      */
     private void identifyLanguage() {
         text = source_text.getText().toString();
         LanguageIdentifier language_identifier = LanguageIdentification.getClient();
+        source_lang.setText("Detecting...");
                 language_identifier.identifyLanguage(text).addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
             public void onSuccess(String s) {
@@ -64,16 +73,59 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Can't Identify Language", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    getLanguageCode(s);
+                       source_lang.setText(s);
+                       translateText(text);
+
                 }
             }
-        });
+        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("Error " , e.getMessage());
+                    }
+                });
     }
 
     /**
-     * This method gets the language code of a language.
-     * @param s A string containing language code of the Identified language.
+     * This method translates the given text
+     * @param s A string containing a string of text
      */
-    private void getLanguageCode(String s) {
+    private void translateText(String s) {
+        TranslatorOptions options = new TranslatorOptions.Builder()
+                        .setSourceLanguage(TranslateLanguage.ENGLISH)
+                        .setTargetLanguage(TranslateLanguage.BENGALI)
+                        .build();
+        final Translator english_bengali_translator = Translation.getClient(options);
+
+        DownloadConditions conditions = new DownloadConditions.Builder().requireWifi().build();
+        english_bengali_translator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Model download successful", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(
+                new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("Error " , e.getMessage());
+                    }
+                });
+
+        english_bengali_translator.translate(s).addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                translated_text.setText(s);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(IdentifyTranslateTextActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error " , e.getMessage());
+            }
+        });
+
     }
 }

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="20sp"
-        android:text="Detecting..."
+        android:text=""
         android:layout_gravity="center_horizontal"
         android:id="@+id/sourceLang"/>
     <TextView

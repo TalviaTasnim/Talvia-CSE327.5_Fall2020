@@ -63,7 +63,7 @@ public class TextToSpeechExample extends AppCompatActivity {
     }
 
     /**
-     * this method envokes speak button
+     * this method invokes speak button
      */
     private void speak() {
         String text = m_edit_text.getText().toString();
