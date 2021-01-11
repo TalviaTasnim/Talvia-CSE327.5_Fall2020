@@ -24,6 +24,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 /**
  * The class contains method of language identification
  * @author Safayat
+ * @author Rubaida
  */
 public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
