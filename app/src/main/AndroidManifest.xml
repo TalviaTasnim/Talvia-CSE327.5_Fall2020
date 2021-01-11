@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UTSC">
-        <activity android:name=".DashBoard">
+        <activity android:name=".HomeActivity">
+
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="ocr" />
@@ -25,13 +26,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+
+        <activity android:name=".SpeechToText" />
+        <activity android:name=".SaveText" />
+        <activity android:name=".DashBoard"/>
+
         <activity android:name=".TextToSpeechExample" />
         <activity android:name=".IdentifyTranslateTextActivity" />
-        <activity android:name=".OCR">
-
-        </activity>
+        <activity android:name=".OCR" />
     </application>
 
 </manifest>
