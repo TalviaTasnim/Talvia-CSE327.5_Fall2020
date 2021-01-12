@@ -35,7 +35,7 @@
 
         <activity android:name=".TextToSpeechExample" />
         <activity android:name=".IdentifyTranslateTextActivity" />
-        <activity android:name=".OCR" />
+        <activity android:name=".Ocr" />
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 /**
  * This class is the DashBoard of our app.
+ * Contains link to different activities
  */
 public class DashBoard extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class DashBoard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DashBoard.this, "OCR clicked!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), OCR.class));
+                startActivity(new Intent(getApplicationContext(), Ocr.class));
             }
         });
 
