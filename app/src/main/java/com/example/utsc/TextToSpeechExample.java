@@ -6,9 +6,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Intent;
 import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.Locale;
 
@@ -19,17 +24,39 @@ import java.util.Locale;
  */
 
 public class TextToSpeechExample extends AppCompatActivity {
+
     private TextToSpeech m_tts;
     private EditText m_edit_text;
     private SeekBar m_seekbar_pitch;
     private SeekBar m_seekbar_speed;
     private Button m_button_speak;
+     Button m_button;
+     String d;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_speech_example);
 
+        m_edit_text = (EditText) findViewById(R.id.edit_text) ;
+        m_button = (Button) findViewById(R.id.button_save);
+
+        m_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TextToSpeechExample.this, SaveText.class);
+                d = m_edit_text.getText().toString();
+                intent.putExtra("Value", d);
+                startActivity(intent);
+                finish();
+                Toast.makeText(getApplicationContext(), "Data sent!", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+        m_edit_text = (EditText) findViewById(R.id.edit_text);
         m_button_speak = findViewById(R.id.button_speak);
         m_tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -47,6 +74,8 @@ public class TextToSpeechExample extends AppCompatActivity {
                 }
             }
         });
+
+
 
         /*
           Assigning variables
@@ -92,4 +121,8 @@ public class TextToSpeechExample extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
+
+
+
 }
