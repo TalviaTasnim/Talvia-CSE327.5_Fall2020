@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 /**
- * This class is the Dash Board.
+ * This class is the DashBoard of our app.
  */
 public class DashBoard extends AppCompatActivity {
 
@@ -23,13 +23,14 @@ public class DashBoard extends AppCompatActivity {
      */
     CardView card_text_to_speech;
     /**
+     * The Card save text.
+     */
+    CardView card_save_text;
+    /**
      * The Card speech to text.
      */
     CardView card_speech_to_text;
-    /**
-     * The Card quit.
-     */
-    CardView card_quit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,8 @@ public class DashBoard extends AppCompatActivity {
         card_ocr = findViewById(R.id.cardOCR);
         card_text_to_speech = findViewById(R.id.cardTTS);
         card_speech_to_text = findViewById(R.id.cardSTT);
-        card_quit = findViewById(R.id.closeApp);
+        card_save_text = findViewById(R.id.cardSaveText);
+
 
         card_ocr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,15 +59,21 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        /*
-          Closing the app
-        */
-        card_quit.setOnClickListener(new View.OnClickListener() {
+        card_speech_to_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                System.exit(0);
+                Toast.makeText(DashBoard.this, "Speech to Text clicked!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), SpeechToText.class));
             }
         });
+
+        card_save_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DashBoard.this, "Save Text clicked!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), SaveText.class));
+            }
+        });
+
     }
 }
