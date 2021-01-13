@@ -11,7 +11,9 @@ public class SaveText extends AppCompatActivity {
      TextView tv ;
      String d;
 
-
+    /**
+     * feature 5 - saving data
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

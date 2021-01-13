@@ -39,6 +39,10 @@ public class TextToSpeechExample extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_speech_example);
 
+
+        /**
+         * feature 5- saving data
+         */
         m_edit_text = (EditText) findViewById(R.id.edit_text) ;
         m_button = (Button) findViewById(R.id.button_save);
 
@@ -55,6 +59,11 @@ public class TextToSpeechExample extends AppCompatActivity {
             }
         });
 
+
+
+        /**
+         * feature 6- text to speech
+         */
 
         m_edit_text = (EditText) findViewById(R.id.edit_text);
         m_button_speak = findViewById(R.id.button_speak);
@@ -77,7 +86,7 @@ public class TextToSpeechExample extends AppCompatActivity {
 
 
 
-        /*
+        /**
           Assigning variables
          */
         m_edit_text = findViewById(R.id.edit_text);
