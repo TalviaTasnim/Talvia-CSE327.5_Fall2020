@@ -33,12 +33,10 @@ public class TextToSpeechExample extends AppCompatActivity {
      Button m_button;
      String d;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_speech_example);
-
 
         /**
          * feature 5- saving data
@@ -58,8 +56,6 @@ public class TextToSpeechExample extends AppCompatActivity {
 
             }
         });
-
-
 
         /**
          * feature 6- text to speech
@@ -83,8 +79,6 @@ public class TextToSpeechExample extends AppCompatActivity {
                 }
             }
         });
-
-
 
         /**
           Assigning variables
@@ -118,7 +112,6 @@ public class TextToSpeechExample extends AppCompatActivity {
         m_tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
-
     /**
      * when the written text is done speaking one time
      */
@@ -130,8 +123,5 @@ public class TextToSpeechExample extends AppCompatActivity {
         }
         super.onDestroy();
     }
-
-
-
 
 }

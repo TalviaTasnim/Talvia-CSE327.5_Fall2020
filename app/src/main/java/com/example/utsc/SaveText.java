@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * @author Talvia
+ * @version 1.0
+ */
 public class SaveText extends AppCompatActivity {
 
      TextView tv ;
      String d;
-
     /**
      * feature 5 - saving data
      */
