@@ -6,30 +6,64 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Intent;
 import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.Locale;
 
 /**
  * This class contains methods for text extraction and text display
+ *
  * @author Talvia
  * @version 1.0
  */
 
 public class TextToSpeechExample extends AppCompatActivity {
+
     private TextToSpeech m_tts;
     private EditText m_edit_text;
     private SeekBar m_seekbar_pitch;
     private SeekBar m_seekbar_speed;
     private Button m_button_speak;
+    private Button m_button;
+    private String d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_speech_example);
 
+        /**
+         * feature 5- saving data
+         */
+
+        m_edit_text = (EditText) findViewById(R.id.edit_text);
+        m_button = (Button) findViewById(R.id.button_save);
+
+        m_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TextToSpeechExample.this, SaveText.class);
+                d = m_edit_text.getText().toString();
+                intent.putExtra("Value", d);
+                startActivity(intent);
+                finish();
+                Toast.makeText(getApplicationContext(), "Data sent!", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        /**
+         * feature 6- text to speech
+         */
+
+        m_edit_text = (EditText) findViewById(R.id.edit_text);
         m_button_speak = findViewById(R.id.button_speak);
         m_tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -48,8 +82,8 @@ public class TextToSpeechExample extends AppCompatActivity {
             }
         });
 
-        /*
-          Assigning variables
+        /**
+         Assigning variables
          */
         m_edit_text = findViewById(R.id.edit_text);
         m_seekbar_pitch = findViewById(R.id.seek_bar_pitch);
@@ -71,7 +105,6 @@ public class TextToSpeechExample extends AppCompatActivity {
         /**
          * 50 represents normal pitch
          * */
-
         if (pitch < 0.1) pitch = 0.1f;
         float speed = (float) m_seekbar_speed.getProgress() / 50;
         if (speed < 0.1) speed = 0.1f;
@@ -79,7 +112,6 @@ public class TextToSpeechExample extends AppCompatActivity {
         m_tts.setSpeechRate(speed);
         m_tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
-
 
     /**
      * when the written text is done speaking one time
@@ -92,4 +124,5 @@ public class TextToSpeechExample extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
 }
