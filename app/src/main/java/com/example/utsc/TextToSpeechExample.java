@@ -19,6 +19,7 @@ import java.util.Locale;
 
 /**
  * This class contains methods for text extraction and text display
+ *
  * @author Talvia
  * @version 1.0
  */
@@ -30,8 +31,8 @@ public class TextToSpeechExample extends AppCompatActivity {
     private SeekBar m_seekbar_pitch;
     private SeekBar m_seekbar_speed;
     private Button m_button_speak;
-     Button m_button;
-     String d;
+    private Button m_button;
+    private String d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class TextToSpeechExample extends AppCompatActivity {
         /**
          * feature 5- saving data
          */
-        m_edit_text = (EditText) findViewById(R.id.edit_text) ;
+
+        m_edit_text = (EditText) findViewById(R.id.edit_text);
         m_button = (Button) findViewById(R.id.button_save);
 
         m_button.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +83,7 @@ public class TextToSpeechExample extends AppCompatActivity {
         });
 
         /**
-          Assigning variables
+         Assigning variables
          */
         m_edit_text = findViewById(R.id.edit_text);
         m_seekbar_pitch = findViewById(R.id.seek_bar_pitch);
@@ -103,7 +105,6 @@ public class TextToSpeechExample extends AppCompatActivity {
         /**
          * 50 represents normal pitch
          * */
-
         if (pitch < 0.1) pitch = 0.1f;
         float speed = (float) m_seekbar_speed.getProgress() / 50;
         if (speed < 0.1) speed = 0.1f;
