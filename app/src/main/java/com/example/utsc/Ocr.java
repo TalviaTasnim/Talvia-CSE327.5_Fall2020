@@ -30,7 +30,7 @@ import java.util.List;
  * @author Safayat
  * @version 1.0
  */
-public class OCR extends AppCompatActivity {
+public class Ocr extends AppCompatActivity {
 
     /**
      * Defining variables
@@ -74,7 +74,7 @@ public class OCR extends AppCompatActivity {
         identify_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OCR.this, IdentifyTranslateTextActivity.class);
+                Intent intent = new Intent(Ocr.this, IdentifyTranslateTextActivity.class);
                 intent.putExtra("TEXT",text);
                 startActivity(intent);
 
@@ -125,7 +125,7 @@ public class OCR extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(OCR.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Ocr.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("Error " , e.getMessage());
             }
         });

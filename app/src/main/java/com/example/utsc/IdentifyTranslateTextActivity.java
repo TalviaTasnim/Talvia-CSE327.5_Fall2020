@@ -22,19 +22,19 @@ import com.google.mlkit.nl.translate.Translator;
 import com.google.mlkit.nl.translate.TranslatorOptions;
 
 /**
- * The class contains method of language identification
+ * The class contains method of language identification and translation
  * @author Safayat
  * @author Rubaida
  */
 public class IdentifyTranslateTextActivity extends AppCompatActivity {
 
-    /*
+    /**
      * Variable declaration
      */
-    private TextView source_lang,source_text;
+    public TextView source_lang,source_text;
     private Button translate_btn;
     private TextView translated_text;
-    private String text;
+    private  String text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
      * This method identifies the language in a text
      * by getting the language code of that text
      */
-    private void identifyLanguage() {
+    public void identifyLanguage() {
         text = source_text.getText().toString();
         LanguageIdentifier language_identifier = LanguageIdentification.getClient();
         source_lang.setText("Detecting...");
@@ -98,7 +98,7 @@ public class IdentifyTranslateTextActivity extends AppCompatActivity {
      * This method translates the given text
      * @param s A string containing a string of text
      */
-    private void translateText(String s) {
+    public void translateText(String s) {
         TranslatorOptions options = new TranslatorOptions.Builder()
 
                         .setSourceLanguage(TranslateLanguage.ENGLISH)
